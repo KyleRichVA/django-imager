@@ -13,6 +13,17 @@ class ProfileTestCase(TestCase):
         self.user = UserFactory.create()
         self.user.set_password(u'password')
         self.user.save()
+        self.user.profile.camera_model = u"A Camera"
+        self.user.profile.photo_type = u"Great Photos"
+        self.user.profile.region = u'USA'
+        friend = User.objects.create_user(u'Nick', u'Nick@zpd.gov')
+        friend.set_password(u'secret')
+        friend.save()
+        self.user.profile.friends.add(friend.profile)
+
+    def tearDown(self):
+        # Make sure to delete the Nick User
+        self.user.profile.friends.all()[0].delete()
 
     def test_user_has_profile(self):
         """Test that a django user has a profile connected to it."""
@@ -20,23 +31,14 @@ class ProfileTestCase(TestCase):
 
     def test_profile_good(self):
         """Test the profile has all its properties."""
-        long_str = u"A"*350
         profile = self.user.profile
-        #friend = self.user.profile.friends.create()
-        self.assertFieldOutput(profile.camera_model,
-                               {u'A Camera': u'A Camera'},
-                               {long_str: ['max_length']})
-        self.assertFieldOutput(profile.photo_type,
-                               {u'Photos': u'Photos'},
-                               {long_str: MaxLengthValidator})
-        self.assertFieldOutput(profile.region,
-                               {u'USA': u'USA'},
-                               {long_str: MaxLengthValidator})
+        self.assertEqual(profile.camera_model, u"A Camera")
+        self.assertEqual(profile.photo_type, u"Great Photos")
+        self.assertEqual(profile.region, u"USA")
         self.assertIsInstance(profile.user, User)
-        #self.assertIn(profile.friends, friend)
+        self.assertTrue(profile.friends)
         self.assertTrue(profile.is_active)
-        self.assertIsInstance(profile.active, User_Manager)
-        self.assertIn(User.profile.active.all(), profile)
+        self.assertEqual(User_Profile.active.all()[0], profile)
 
 
 class UserFactory(factory.django.DjangoModelFactory):
