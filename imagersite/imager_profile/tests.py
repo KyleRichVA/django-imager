@@ -16,14 +16,10 @@ class ProfileTestCase(TestCase):
         self.user.profile.camera_model = u"A Camera"
         self.user.profile.photo_type = u"Great Photos"
         self.user.profile.region = u'USA'
-        friend = User.objects.create_user(u'Nick', u'Nick@zpd.gov')
+        friend = User(username=u'Nick', email=u'Nick@zpd.gov')
         friend.set_password(u'secret')
         friend.save()
         self.user.profile.friends.add(friend.profile)
-
-    def tearDown(self):
-        # Make sure to delete the Nick User
-        self.user.profile.friends.all()[0].delete()
 
     def test_user_has_profile(self):
         """Test that a django user has a profile connected to it."""
