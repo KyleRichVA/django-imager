@@ -1,7 +1,6 @@
 from django.test import TestCase
-from imagersite.imager_profile.models import User_Profile
+from imager_profile.models import User_Profile
 from django.contrib.auth.models import User
-from django.core.validators import MaxLengthValidator
 import factory
 
 # Create your tests here.
