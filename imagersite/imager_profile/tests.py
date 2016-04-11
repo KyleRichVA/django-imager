@@ -1,5 +1,5 @@
 from django.test import TestCase
-from models import User_Profile, User_Manager
+from imagersite.imager_profile.models import User_Profile
 from django.contrib.auth.models import User
 from django.core.validators import MaxLengthValidator
 import factory

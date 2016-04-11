@@ -1,7 +1,7 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
 from django.conf import settings
-from models import User_Profile
+from imagersite.imager_profile.models import User_Profile
 import logging
 logger = logging.getLogger(__name__)
 
