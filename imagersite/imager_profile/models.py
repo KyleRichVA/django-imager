@@ -16,6 +16,7 @@ class User_Profile(models.Model):
     friends = models.ManyToManyField("self")
     region = models.CharField(max_length=250)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE,
                                 related_name='profile')
     active = User_Manager()
 

@@ -31,9 +31,16 @@ class ProfileTestCase(TestCase):
         self.assertEqual(profile.photo_type, u"Great Photos")
         self.assertEqual(profile.region, u"USA")
         self.assertIsInstance(profile.user, User)
-        self.assertTrue(profile.friends)
+        self.assertTrue(profile.friends.all()[0].user)
+        self.assertEqual(profile.friends.all()[0].friends.all()[0], profile)
         self.assertTrue(profile.is_active)
         self.assertEqual(User_Profile.active.all()[0], profile)
+
+    def test_profile_delete(self):
+        """test the profile is deleted when user is deleted."""
+        self.user.delete()
+        # Check if the Judy profile is gone.
+        self.assertFalse(self.user.profile in User_Profile.active.all())
 
 
 class UserFactory(factory.django.DjangoModelFactory):
