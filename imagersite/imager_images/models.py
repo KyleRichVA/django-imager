@@ -11,7 +11,7 @@ class Album(models.Model):
 
 
 class Photo(models.Model):
-    file = models.FilePathField(path='/images')
+    file = models.ImageField(upload_to='photos')
     owner = models.ForeignKey(User_Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=1000)
