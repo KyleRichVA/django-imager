@@ -17,7 +17,6 @@ class PhotoTestCase(TestCase):
         self.user = UserFactory.create(username=u'Judy Hopps',
                                        email=u'Judy@zpd.gov')
         self.user.set_password(u'password')
-        self.user.save()
 
     @override_settings(MEDIA_ROOT=os.path.join(BASE_DIR, 'tmp'))
     def test_photo_creation(self):

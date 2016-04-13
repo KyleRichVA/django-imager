@@ -27,13 +27,18 @@ class ProfileTestCase(TestCase):
 
     def test_profile_deletes_with_user(self):
         # We have one profile/user currently.
-        self.assertTrue(len(User_Profile.objects.all()) == 1)
+        self.assertTrue(self.profile in User_Profile.objects.all())
         self.user.delete()
         # Now there should be no profiles.
-        self.assertTrue(len(User_Profile.objects.all()) == 0)
+        self.assertFalse(self.profile in User_Profile.objects.all())
 
     def test_friend_connection(self):
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
+        self.friend = UserFactory.create(username=u'Nick',
+                                         email=u'Nick@zpd.gov')
+        self.assertFalse(self.friend.profile in self.profile.friends.all())
+        self.profile.friends.add(self.friend.profile)
+        self.assertTrue(self.friend.profile in self.profile.friends.all())
 
 
 class UserFactory(factory.django.DjangoModelFactory):
