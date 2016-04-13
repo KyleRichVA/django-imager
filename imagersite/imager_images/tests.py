@@ -29,11 +29,13 @@ class PhotoTestCase(TestCase):
         self.photo.save()
         self.assertTrue(self.user.profile.photos)
 
-    @override_settings(MEDIA_ROOT=os.path.join(BASE_DIR, 'test_media'))
     def test_album_creation(self):
         """Test that a album gets connected to a user profile"""
-
-
+        with self.assertRaises(ObjectDoesNotExist):
+            self.user.profile.albums
+        self.album = AlbumFactory(owner=self.user.profile)
+        self.album.save()
+        self.assertTrue(self.user.profile.albums)
 
 
 class UserFactory(factory.django.DjangoModelFactory):

@@ -12,7 +12,7 @@ PUBLISH_CHOICES = (
 
 
 class Album(models.Model):
-    owner = models.ForeignKey(User_Profile, on_delete=models.CASCADE,
+    owner = models.OneToOneField(User_Profile, on_delete=models.CASCADE,
                               related_name='albums')
     title = models.CharField(max_length=200)
     cover = models.OneToOneField('Photo', on_delete=models.SET_NULL,

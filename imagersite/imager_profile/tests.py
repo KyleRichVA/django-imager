@@ -32,6 +32,9 @@ class ProfileTestCase(TestCase):
         # Now there should be no profiles.
         self.assertTrue(len(User_Profile.objects.all()) == 0)
 
+    def test_friend_connection(self):
+        import pdb; pdb.set_trace()
+
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
