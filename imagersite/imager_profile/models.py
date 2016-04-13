@@ -25,3 +25,6 @@ class User_Profile(models.Model):
     @property
     def is_active(self):
         return self.user.is_active
+
+    def __str__(self):
+        return u"Profile for {}".format(self.user.username)

@@ -63,4 +63,4 @@ target/
 
 media
 !media/.gitkeep
-test_media
+tmp
