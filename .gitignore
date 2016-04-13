@@ -62,3 +62,5 @@ target/
 .ipynb_checkpoints
 
 media/
+!media/.gitinclude
+test_media/
