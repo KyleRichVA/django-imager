@@ -43,6 +43,13 @@ class ProfileTestCase(TestCase):
         """Test that the profile is_active matches with the User is_active."""
         self.assertEquals(self.profile.is_active, self.user.is_active)
 
+    def test_active_manager(self):
+        """Test the .active gives back all active profiles."""
+        self.assertEquals(User_Profile.active.all()[0], self.profile)
+        self.user.is_active = False
+        self.user.save()
+        self.assertFalse(self.profile in User_Profile.active.all())
+
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
