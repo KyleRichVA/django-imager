@@ -33,12 +33,15 @@ class ProfileTestCase(TestCase):
         self.assertFalse(self.profile in User_Profile.objects.all())
 
     def test_friend_connection(self):
-        #import pdb; pdb.set_trace()
         self.friend = UserFactory.create(username=u'Nick',
                                          email=u'Nick@zpd.gov')
         self.assertFalse(self.friend.profile in self.profile.friends.all())
         self.profile.friends.add(self.friend.profile)
         self.assertTrue(self.friend.profile in self.profile.friends.all())
+
+    def test_is_active(self):
+        """Test that the profile is_active matches with the User is_active."""
+        self.assertEquals(self.profile.is_active, self.user.is_active)
 
 
 class UserFactory(factory.django.DjangoModelFactory):
